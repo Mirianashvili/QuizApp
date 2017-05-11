@@ -1,0 +1,14 @@
+﻿@{ 
+    Layout = null;
+}
+
+<form action="~/Genre/Create" method="post">
+    @Html.ValidationSummary()
+    <div>
+        <label>Quiz Name</label>
+        <input type="text" name="Name" />
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</form>

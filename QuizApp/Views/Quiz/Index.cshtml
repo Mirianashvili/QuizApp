@@ -1,0 +1,12 @@
+﻿@model List<QuizApp.Models.Quiz>
+
+@{ 
+    Layout = null;
+}
+
+@foreach (var quiz in Model)
+{
+    <div>
+        @quiz.Name
+    </div>
+}

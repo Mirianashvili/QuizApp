@@ -1,0 +1,16 @@
+﻿@{ 
+    Layout = null;
+}
+
+@model QuizApp.Models.Genre
+
+<form action="~/Genre/Edit" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div>
+        <label>Name</label>
+        <input type="text" name="Name" value="@Model.Name" />
+    </div>
+    <div>
+        <input type="submit" value="Update" />
+    </div>
+</form>

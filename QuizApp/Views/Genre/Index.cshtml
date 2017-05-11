@@ -1,0 +1,11 @@
+﻿@model List<QuizApp.Models.Genre>
+@{ 
+    Layout = null;
+}
+
+@foreach (var genre in Model)
+{
+    <div>
+        @genre.Name
+    </div>
+}
