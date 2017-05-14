@@ -1,10 +1,17 @@
 ﻿@{ 
-    Layout = null;
+    Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
 }
 
-@model QuizApp.Models.Genre
+@model QuizApp.ViewModels.DetailsGenreViewModel
 
-<div>
-    @Model.Id
-    @Model.Name
+
+<div class="col-md-9">
+    @Model.Genre.Title
+
+    @foreach (var item in Model.Tests)
+    { 
+        <div class="well">
+            @item.Title
+        </div>
+    }
 </div>

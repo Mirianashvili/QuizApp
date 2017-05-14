@@ -8,6 +8,7 @@ namespace QuizApp.Models
     public class Genre
     {
         public int Id { get; set; }
-        public String Name { get; set; }
+        public String Title { get; set; }
+        public int IsActive { get; set; }
     }
 }

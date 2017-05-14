@@ -3,36 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using QuizApp.Models;
+using QuizApp.DB;
 
 namespace QuizApp.Repository
 {
     public class GenreRepository : IRepository<Genre>
     {
+        private QuizAppDbContext context;
+
+        public GenreRepository()
+        {
+            context = new QuizAppDbContext();    
+        }
+
         public void Add(Genre entity)
         {
-            throw new NotImplementedException();
+            context.Add(entity);
+            context.SaveChanges();
         }
-
-        public void Commit()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public void Delete(Genre entity)
         {
-            throw new NotImplementedException();
+            context.Remove(entity);
+            context.SaveChanges();
         }
 
         public Genre Get(int Id)
         {
-            throw new NotImplementedException();
+            return context.Genre.FirstOrDefault(x => x.Id == Id);
         }
 
         public List<Genre> getAll()
         {
-            throw new NotImplementedException();
+            return this.context.Genre.ToList();
         }
-        
+
         public void Update(Genre entity)
         {
             throw new NotImplementedException();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace QuizApp.Models
 {
     public class Question
@@ -12,5 +8,6 @@ namespace QuizApp.Models
         // RANGE(1,5)
         public int Score { get; set; }
         public string Title { get; set; }
+        public bool IsActive { get; set; }
     }
 }

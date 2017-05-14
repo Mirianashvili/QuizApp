@@ -13,10 +13,12 @@ namespace QuizApp.Controllers
     {
 
         IRepository<Genre> genreRepository;
+        IRepository<Test> testRepository;
 
         public GenreController()
         {
-            this.genreRepository = new InMemoryGenreRepository();
+            this.testRepository = new TestRepository();
+            this.genreRepository = new GenreRepository();
         }
 
         public IActionResult Index()
@@ -40,7 +42,8 @@ namespace QuizApp.Controllers
 
             Genre genre = new Genre
             {
-                Name = vm.Name
+                Title = vm.Name,
+                IsActive = 1
             };
 
             genreRepository.Add(genre);
@@ -57,7 +60,18 @@ namespace QuizApp.Controllers
                 return RedirectToAction("Error", "Genre");
             }
 
-            return View(genre);
+            List<Test> tests = testRepository.getAll()
+                .Where(x => x.GenreId == genre.Id)
+                .ToList();
+
+            DetailsGenreViewModel vm = new DetailsGenreViewModel()
+            {
+                Genre = genre,
+                Tests = tests
+            };
+            
+
+            return View(vm);
         }
 
 
@@ -99,6 +113,18 @@ namespace QuizApp.Controllers
 
             return RedirectToAction("Index", "Genre");
         }
+        
+        public IActionResult Search(string query)
+        {
+            var genres = genreRepository.getAll()
+                .Where(x => x.Title.ToLower().Contains(query.ToLower()))
+                .ToList();
+            return View(genres);
+        }
 
+        public IActionResult IsActive(bool status)
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,38 @@
+﻿@model List<QuizApp.Models.Test>
+
+@{
+    Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
+}
+
+<div class="col-md-9">
+
+    <div class="search">
+        <form action="~/Test/Search" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" name="query">
+                <span class="input-group-btn">
+                    <button class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    
+
+    @foreach (var test in Model)
+    {
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>@test.Title</h5>
+                </div>
+                <div class="col-md-4">
+                    <a href="~/Test/Details/@test.Id" class="btn btn-success pull-right">დეტალურად</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

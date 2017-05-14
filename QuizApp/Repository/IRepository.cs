@@ -9,7 +9,6 @@ namespace QuizApp.Repository
     {
         List<T> getAll();
         void Add(T entity);
-        void Commit();
         T Get(int Id);
         void Delete(T entity);
         void Update(T entity);

@@ -1,11 +1,40 @@
 ﻿@model List<QuizApp.Models.Genre>
 @{ 
-    Layout = null;
+    Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
 }
 
-@foreach (var genre in Model)
-{
-    <div>
-        @genre.Name
+<div class="col-md-3">
+    <div class="list-group">
+        <a class="list-group-item" href="~/Genre">კატეგორია</a>
+        <a class="list-group-item" href="~/Test">ტესტი</a>
     </div>
-}
+    <div class="form-group">
+        <a href="~/Genre/Create" class="btn btn-success form-control">ახალი კატეგორია</a>
+    </div>
+</div>
+
+<div class="col-md-9">
+    
+    <div class="search">
+        <form action="~/Genre/Search" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" name="query" placeholder="ძიება">
+            </div>
+        </form>
+    </div>
+
+      
+    @foreach (var genre in Model)
+    {
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8 col-xs-6">
+                    <h5>@genre.Title</h5>
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <a href="~/Genre/Details/@genre.Id" class="btn btn-success pull-right">დეტალურად</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
