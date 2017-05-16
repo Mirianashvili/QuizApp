@@ -1,0 +1,30 @@
+﻿@model QuizApp.ViewModels.DetailsQuestionViewModel
+
+@{
+    Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
+}
+
+<div class="col-md-3">
+    @Html.Partial("~/Views/Partials/_menu.cshtml")
+    <div class="form-group">
+        <a href="~/Question/Create" class="btn btn-success form-control">ახალი კითხვა</a>
+    </div>
+</div>
+
+<div class="col-md-9">
+    <div class="well">
+        <p>კატეგორია:@Model.Genre.Title</p>
+        <p>ტესტი:@Model.Test.Title</p>
+        
+        <p>კითხვა:@Model.Question.Title</p>
+        <p>სირთულა:@Model.Question.Score</p>
+
+        <div class="list-group">
+            @foreach (var answer in Model.Answer)
+            { 
+                <a href="#" class="list-group-item">@answer.Title</a>
+            }
+        </div>
+        
+    </div>
+</div>

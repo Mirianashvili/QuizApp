@@ -40,10 +40,19 @@ namespace QuizApp.Controllers
                 return View();
             }
 
+            var selectedGenre = genreRepository.getAll()
+                .Where(x => x.Title == vm.Title)
+                .FirstOrDefault();
+
+            if (selectedGenre != null)
+            {
+                ModelState.AddModelError("errors", "ასეთი კატეგორია უკვე არსებობს");
+                return View(selectedGenre);
+            }
+
             Genre genre = new Genre
             {
-                Title = vm.Name,
-                IsActive = 1
+                Title = vm.Title,
             };
 
             genreRepository.Add(genre);
@@ -95,11 +104,14 @@ namespace QuizApp.Controllers
         [HttpPost]
         public IActionResult Edit(Genre genre)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             genreRepository.Update(genre);
             return RedirectToAction("Index", "Genre");
         }
-
-        [HttpPost]
+        
         public IActionResult Remove(int Id)
         {
             var genre = genreRepository.Get(Id);
@@ -120,11 +132,6 @@ namespace QuizApp.Controllers
                 .Where(x => x.Title.ToLower().Contains(query.ToLower()))
                 .ToList();
             return View(genres);
-        }
-
-        public IActionResult IsActive(bool status)
-        {
-            return View();
         }
     }
 }

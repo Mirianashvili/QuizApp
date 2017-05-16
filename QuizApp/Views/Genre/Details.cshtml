@@ -4,14 +4,27 @@
 
 @model QuizApp.ViewModels.DetailsGenreViewModel
 
+<div class="col-md-3">
+    @Html.Partial("~/Views/Partials/_menu.cshtml")
+    <div class="form-group">
+        <a href="~/Genre/Create" class="btn btn-success form-control">ახალი კატეგორია</a>
+    </div>
+</div>
 
 <div class="col-md-9">
-    @Model.Genre.Title
-
-    @foreach (var item in Model.Tests)
-    { 
-        <div class="well">
-            @item.Title
+    <div class="well">
+        <h4>კატეგორია:@Model.Genre.Title</h4>
+        <h5>ტესტები</h5>
+        <div class="list-group">
+            @foreach (var item in Model.Tests)
+            {
+                <a href="~/Test/Details/@item.Id" class="list-group-item">
+                    @item.Title
+                </a>
+            }
         </div>
-    }
+        <a href="~/Genre/Edit/@Model.Genre.Id" class="btn btn-info form-control" style="margin-top:10px;">
+            რედაქტირება
+        </a>
+    </div>
 </div>

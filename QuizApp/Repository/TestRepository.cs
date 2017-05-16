@@ -39,7 +39,13 @@ namespace QuizApp.Repository
 
         public void Update(Test entity)
         {
-            throw new NotImplementedException();
+            var test = this.Get(entity.Id);
+
+            test.Title = entity.Title;
+            test.Difficulty = entity.Difficulty;
+            test.GenreId = entity.GenreId;
+
+            context.SaveChanges();
         }
     }
 }

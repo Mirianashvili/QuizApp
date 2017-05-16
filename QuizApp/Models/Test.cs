@@ -7,6 +7,5 @@ namespace QuizApp.Models
         public int GenreId { get; set; }
         public string Title { get; set; }
         public int Difficulty { get; set; }
-        public int IsActive { get; set; }
     }
 }

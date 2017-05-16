@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
+}
+
+@model List<QuizApp.Models.Test>
+
+<div class="col-md-3">
+    @Html.Partial("~/Views/Partials/_menu.cshtml")
+    <div class="form-group">
+        <a href="~/Question/Create" class="btn btn-success form-control">ახალი კატეგორია</a>
+    </div>
+</div>
+
+<div class="col-md-9">
+    <form action="~/Question/Create" method="post">
+        @Html.ValidationSummary()
+        <div class="form-group">
+            <label>ტესტი</label>
+            <select name="TestId" class="form-control">
+                @foreach (var item in Model)
+                { 
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label>კითხვა</label>
+            <textarea name="Title" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label>ქულა</label>
+            <input type="number" class="form-control" name="Score"/>
+        </div>
+        <div id="answers"></div>
+        <div class="form-group">
+            <button class="btn btn-success" id="answerButton" type="button">ახალი პასუხი</button>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success form-control" value="შენავა" />
+        </div>
+    </form>
+</div>
+
+<div class="answer-generated" style="display:none;">
+    <div class="row answer">
+        <hr/>
+        <div class="col-md-10">
+            <div class="form-group">
+                <label>პასუხი</label>
+                <input type="text" name="Titles[]" class="form-control" />
+            </div>
+            <div class="form-group">
+                <span>
+                    <input type="checkbox" name="Corrects[]" class="checkbox"/> სწორია?
+                </span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="pull-right btn btn-danger removeButton" value="1">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+    <script>
+        $('.removeButton').click(function () {
+            var id = $(this).val();
+            $('#answer_' + id).remove();
+        });
+    </script>
+</div>
+
+<script>
+    var count = 0;
+    $('#answerButton').click(function () {
+        $('.answer-generated .answer').attr('id', 'answer_' + count);
+        $('.answer-generated .removeButton').attr('value', count);
+        $('.answer-generated .checkbox').attr('value', count);
+        //alert($('.answer-generated').html());
+        $('#answers').append($('.answer-generated').html());
+        ++count;
+    });
+</script>

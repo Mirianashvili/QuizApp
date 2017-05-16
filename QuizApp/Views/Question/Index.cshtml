@@ -1,35 +1,35 @@
-﻿@model List<QuizApp.Models.Genre>
-@{ 
+﻿@model List<QuizApp.Models.Question>
+@{
     Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
 }
 
 <div class="col-md-3">
     @Html.Partial("~/Views/Partials/_menu.cshtml")
     <div class="form-group">
-        <a href="~/Genre/Create" class="btn btn-success form-control">ახალი კატეგორია</a>
+        <a href="~/Question/Create" class="btn btn-success form-control">ახალი კითხვა</a>
     </div>
 </div>
 
 <div class="col-md-9">
-    
+
     <div class="search">
-        <form action="~/Genre/Search" method="get">
+        <form action="~/Question/Search" method="get">
             <div class="form-group">
                 <input type="text" class="form-control" name="query" placeholder="ძიება">
             </div>
         </form>
     </div>
 
-      
-    @foreach (var genre in Model)
+
+    @foreach (var question in Model)
     {
         <div class="well">
             <div class="row">
                 <div class="col-md-8 col-xs-6">
-                    <h5>@genre.Title</h5>
+                    <h5>@question.Title</h5>
                 </div>
                 <div class="col-md-4 col-xs-6">
-                    <a href="~/Genre/Details/@genre.Id" class="btn btn-success pull-right">დეტალურად</a>
+                    <a href="~/Question/Details/@question.Id" class="btn btn-success pull-right">დეტალურად</a>
                 </div>
             </div>
         </div>

@@ -40,7 +40,9 @@ namespace QuizApp.Repository
 
         public void Update(Genre entity)
         {
-            throw new NotImplementedException();
+            Genre genre = this.Get(entity.Id);
+            genre.Title = entity.Title;
+            context.SaveChanges();
         }
     }
 }

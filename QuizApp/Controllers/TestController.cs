@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using QuizApp.Models;
 using QuizApp.Repository;
+using QuizApp.ViewModels;
 
 namespace QuizApp.Controllers
 {
@@ -13,11 +14,13 @@ namespace QuizApp.Controllers
 
         IRepository<Test> testRepository;
         IRepository<Genre> genreRepository;
+        IRepository<Question> questionRepository;
 
         public TestController()
         {
             genreRepository = new GenreRepository();
             testRepository = new TestRepository();
+            questionRepository = new QuestionRepository();
         }
 
         public IActionResult Index()
@@ -29,7 +32,26 @@ namespace QuizApp.Controllers
         public IActionResult Details(int Id)
         {
             var test = testRepository.Get(Id);
-            return View();
+            var questions = questionRepository
+                .getAll()
+                .Where(x => x.TestId == test.Id)
+                .ToList();
+
+            DetailsTestViewModel vm = new DetailsTestViewModel
+            {
+                Test = test,
+                Question = questions
+            };
+
+            return View(vm);
+        }
+
+        public IActionResult Search(string query)
+        {
+            var tests = testRepository.getAll()
+                .Where(x => x.Title.ToLower().Contains(query.ToLower()))
+                .ToList();
+            return View(tests);
         }
     }
 }
