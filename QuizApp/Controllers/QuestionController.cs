@@ -83,7 +83,7 @@ namespace QuizApp.Controllers
                 Title = vm.Title,
                 Score = vm.Score
             };
-            
+
             questionRepository.Add(question);
 
             var questionId = questionRepository.getAll()
@@ -96,7 +96,7 @@ namespace QuizApp.Controllers
 
                 int find = 0;
 
-                foreach(var index in vm.Corrects)
+                foreach (var index in vm.Corrects)
                 {
                     if (index == i)
                     {
@@ -111,7 +111,7 @@ namespace QuizApp.Controllers
                     Title = vm.Titles[i],
                     Correct = find
                 };
-                
+
                 answers.Add(answer);
             }
 
@@ -119,8 +119,13 @@ namespace QuizApp.Controllers
             {
                 answerRepository.Add(answer);
             }
-            
+
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            return View();
         }
     }
 }

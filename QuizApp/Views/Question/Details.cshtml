@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_ManagerDashboard.cshtml";
 }
 
+@using QuizApp.Extensions
+
 <div class="col-md-3">
     @Html.Partial("~/Views/Partials/_menu.cshtml")
     <div class="form-group">
@@ -19,10 +21,15 @@
         <p>კითხვა:@Model.Question.Title</p>
         <p>სირთულა:@Model.Question.Score</p>
 
+        <p>სავარაუდო პასუხები:</p>
+
         <div class="list-group">
             @foreach (var answer in Model.Answer)
             { 
-                <a href="#" class="list-group-item">@answer.Title</a>
+                <div class="list-group-item">
+                    <p>@answer.Title</p>
+                    <p>@Extension.isRight(answer.Correct)</p>
+                </div>
             }
         </div>
         

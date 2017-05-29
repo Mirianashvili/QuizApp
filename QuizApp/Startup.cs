@@ -27,6 +27,10 @@ namespace QuizApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -44,6 +48,8 @@ namespace QuizApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

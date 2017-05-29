@@ -29,6 +29,46 @@ namespace QuizApp.Controllers
             return View(tests);
         }
 
+        public IActionResult Create()
+        {
+            var genres = genreRepository.getAll();
+            return View(genres);
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateTestViewModel vm)
+        {
+            var genres = genreRepository.getAll();
+
+            if (!ModelState.IsValid)
+            {
+                return View(genres);
+            }
+
+            if (vm.Difficulty < 0 || vm.Difficulty > 10)
+            {
+                ModelState.AddModelError("errors", "არასწორია სირთულის დონე");
+                return View(genres);
+            }
+
+            if (genres.Where(x => x.Id == vm.GenreId).FirstOrDefault() == null)
+            {
+                ModelState.AddModelError("errors", "არ არსებობს ასეთი ჟანრი");
+                return View(genres);
+            }
+
+            Test test = new Test
+            {
+                Title = vm.Title,
+                Difficulty = vm.Difficulty,
+                GenreId = vm.GenreId
+            };
+
+            testRepository.Add(test);
+
+            return RedirectToAction("Index", "Test");
+        }
+
         public IActionResult Details(int Id)
         {
             var test = testRepository.Get(Id);

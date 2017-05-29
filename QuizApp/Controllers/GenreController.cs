@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
+using QuizApp.Filters;
 
 namespace QuizApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace QuizApp.Controllers
             this.testRepository = new TestRepository();
             this.genreRepository = new GenreRepository();
         }
-
+        
         public IActionResult Index()
         {
             var genres = genreRepository.getAll();
@@ -106,8 +107,19 @@ namespace QuizApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(genre);
             }
+
+            var isGenreUnique = genreRepository.getAll()
+                .Where(x => x.Title.ToLower() == genre.Title.ToLower())
+                .FirstOrDefault();
+
+            if (isGenreUnique != null)
+            {
+                ModelState.AddModelError("errors", "ასეთი კატეგორიის სახელი უკვე არსებობს");
+                return View(genre);
+            }
+
             genreRepository.Update(genre);
             return RedirectToAction("Index", "Genre");
         }
@@ -121,8 +133,9 @@ namespace QuizApp.Controllers
                 return RedirectToAction("Error", "Genre");
             }
 
+            //delete test,question,answer
             genreRepository.Delete(genre);
-
+            
             return RedirectToAction("Index", "Genre");
         }
         
