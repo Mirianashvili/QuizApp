@@ -15,28 +15,13 @@ namespace QuizApp.Filters
     {
         public override void OnResultExecuting(ResultExecutingContext context)
         {
-            var user = context.HttpContext.Session.Get<User>("login-user");
+            var user = context.HttpContext.Session.Get<User>("login-admin");
 
             if (user == null)
             {
-                Redirect(context);
-            }
-
-            else
-            {
-
-                if (user.UserRoleId != 2)
-                {
-                    Redirect(context);
-                }
-            }
-
-        }
-
-        private void Redirect(ResultExecutingContext context)
-        {
-            context.Result = new RedirectToRouteResult(
+                context.Result = new RedirectToRouteResult(
                     new RouteValueDictionary { { "controller", "Home" }, { "action", "Login" } });
+            }
         }
     }
 }

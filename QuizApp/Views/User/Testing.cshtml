@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@model QuizApp.ViewModels.UserTestingViewModel
+
+<form action="~/User/Next" method="post">
+    <div class="form-group">
+        <p>@Model.Question.Title</p>
+    </div>
+    @foreach (var answer in Model.Answers)
+    {
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="Answers[]" value="@answer.Id"/> @answer.Title
+            </label>
+        </div>
+    }
+    <input type="submit" value="Next" />
+</form>

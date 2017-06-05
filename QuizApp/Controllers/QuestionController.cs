@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using QuizApp.Repository;
 using QuizApp.Models;
 using QuizApp.ViewModels;
+using QuizApp.Filters;
 
 namespace QuizApp.Controllers
 {
+    [AdminFilter]
     public class QuestionController : Controller
     {
         IRepository<Question> questionRepository;

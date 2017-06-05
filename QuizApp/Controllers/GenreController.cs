@@ -10,6 +10,7 @@ using QuizApp.Filters;
 
 namespace QuizApp.Controllers
 {
+    [AdminFilter]
     public class GenreController : Controller
     {
 

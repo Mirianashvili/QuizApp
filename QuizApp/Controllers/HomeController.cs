@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using QuizApp.Repository;
 using QuizApp.Models;
 using QuizApp.Extensions;
+
+/*
+    admin:admin@mail.com 123456 
+*/
 
 namespace QuizApp.Controllers
 {
@@ -82,13 +83,29 @@ namespace QuizApp.Controllers
                 return View();
             }
 
-            return RedirectToAction("Index", "Home");
+    
+            if (user.UserRoleId == 1)
+            {
+                HttpContext.Session.Set<User>("login-user", user);
+                return RedirectToAction("Index", "User");
+            }
+
+            HttpContext.Session.Set<User>("login-admin", user);
+            return RedirectToAction("login-admin", user);
+
         }
 
         [Route("/logout")]
         public IActionResult Logout()
         {
-            return View();
+            HttpContext.Session.Set<User>("login-user", null);
+            HttpContext.Session.Set<User>("login-admin", null);
+            return RedirectToAction("Index", "Home");
+        }
+        
+        public string Password(string id)
+        {
+            return PasswordHasher.Get(id);
         }
     }
 }

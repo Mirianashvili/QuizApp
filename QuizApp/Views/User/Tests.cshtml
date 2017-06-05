@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@model QuizApp.ViewModels.UserTestsViewModel
+
+<div class="row">
+    @foreach (var test in Model.Tests)
+    {
+        <div class="col-md-12 well">
+            <p>@test.Title</p>
+            <form action="~/User/Test" method="post">
+                <input type="hidden" name="Id" value="@test.Id" />
+                <input type="submit" value="ტესტის დაწყება" class="btn btn-danger"/>
+            </form>
+        </div>
+    }
+</div>
