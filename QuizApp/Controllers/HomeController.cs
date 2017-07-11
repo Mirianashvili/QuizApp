@@ -13,9 +13,11 @@ namespace QuizApp.Controllers
     public class HomeController : Controller
     {
         IRepository<User> usersRepository;
+        IRepository<Genre> genreRepository;
 
         public HomeController()
         {
+            genreRepository = new GenreRepository();
             usersRepository = new UserRepository();
         }
 
@@ -24,25 +26,24 @@ namespace QuizApp.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Genre()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var genres = genreRepository.getAll();
+            return View(genres);
         }
 
-        public IActionResult Contact()
+        public IActionResult Category(int Id)
         {
-            ViewData["Message"] = "Your contact page.";
+            var genre = genreRepository.Get(Id);
 
-            return View();
+            if (genre == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return View(genre);
         }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
-
+        
         [Route("/login")]
         public IActionResult Login()
         {
@@ -91,7 +92,7 @@ namespace QuizApp.Controllers
             }
 
             HttpContext.Session.Set<User>("login-admin", user);
-            return RedirectToAction("login-admin", user);
+            return RedirectToAction("Index","Genre");
 
         }
 
@@ -102,10 +103,11 @@ namespace QuizApp.Controllers
             HttpContext.Session.Set<User>("login-admin", null);
             return RedirectToAction("Index", "Home");
         }
-        
-        public string Password(string id)
+
+        public IActionResult Error()
         {
-            return PasswordHasher.Get(id);
+            return View();
         }
+                
     }
 }

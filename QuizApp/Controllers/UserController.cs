@@ -113,6 +113,18 @@ namespace QuizApp.Controllers
             //check user's answer 
             Testing testing = HttpContext.Session.Get<Testing>("testing");
 
+            if (nvm.Answers == null)
+            {
+                UserTestingViewModel uvm = new UserTestingViewModel();
+                uvm.Question = testing.Questions[testing.Position];
+                uvm.Answers = answerRepository.getAll()
+                    .Where(x => x.QuestionId == uvm.Question.Id)
+                    .ToList();
+
+                return View(uvm);
+            }
+
+      
             var question = testing.Questions[testing.Position];
             var answers = answerRepository.getAll()
                 .Where(x => x.QuestionId == question.Id)
@@ -141,7 +153,7 @@ namespace QuizApp.Controllers
 
             if (testing.Position == testing.Questions.Count)
             {
-                return Redirect(testing.Score.ToString());
+                return RedirectToAction("Result", "User");
             }
 
             HttpContext.Session.Set<Testing>("testing",testing);
@@ -155,8 +167,18 @@ namespace QuizApp.Controllers
             return View(vm);
         }
 
+        [TestingFilter]
         public IActionResult Result()
         {
+            //if (HttpContext.Session.Get<Testing>("testing") == null)
+            //{
+            //    return RedirectToAction("Index", "User");
+            //}
+
+            Testing testing = HttpContext.Session.Get<Testing>("testing");
+            HttpContext.Session.Set<Testing>("testing", null);
+
+            ViewBag.Score = testing.Score;
             return View();
         }
 

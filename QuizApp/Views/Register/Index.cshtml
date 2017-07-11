@@ -1,43 +1,28 @@
 ﻿@{ 
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<html>
-<head>
-    <title>Register</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="page-header">რეგისტრაცია</h1>
-            </div>
-            <div class="col-md-3">
-                <form action="~/Register" method="post">
-                    @Html.ValidationSummary()
-                    <div class="form-group">
-                        <label for="Fullname">სრული სახელი</label>
-                        <input type="text" name="Fullname" id="Fullname" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="Email">ელ-ფოსტა</label>
-                        <input type="text" name="Email" id="Email" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="Password">პაროლი</label>
-                        <input type="password" name="Password" id="Password" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="Repeat">გაიმეორე პაროლი</label>
-                        <input type="password" name="Repeat" id="Repeat" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-success" value="რეგისტრაცია" />
-                    </div>
-                </form>
-            </div>
-        </div>
+
+<h3>რეგისტრაცია</h3>
+
+<form action="~/Register" method="post">
+    @Html.ValidationSummary()
+    <div class="form-group">
+        <label for="Fullname">სრული სახელი</label>
+        <input type="text" name="Fullname" id="Fullname" class="form-control" />
     </div>
-</body>
-</html>
+    <div class="form-group">
+        <label for="Email">ელ-ფოსტა</label>
+        <input type="text" name="Email" id="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Password">პაროლი</label>
+        <input type="password" name="Password" id="Password" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Repeat">გაიმეორე პაროლი</label>
+        <input type="password" name="Repeat" id="Repeat" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="რეგისტრაცია" />
+    </div>
+</form>

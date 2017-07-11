@@ -1,0 +1,12 @@
+﻿@model List<QuizApp.Models.Genre>
+
+<div style="margin-top:40px;">
+    @foreach (var item in Model)
+    {
+        <div class="well">
+            <h5>
+                <a href="~/Home/Category/@item.Id">@item.Title</a>
+            </h5>
+        </div>
+    }
+</div>

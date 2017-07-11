@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
@@ -44,7 +41,7 @@ namespace QuizApp.Controllers
             if (users.FirstOrDefault(x => x.Email == vm.Email) != null)
             {
                 AddUser = false;
-                ModelState.AddModelError("errors", "ასეთი პაროლი უკვე არსებობს");
+                ModelState.AddModelError("errors", "ასეთი ფოსტა უკვე არსებობს");
             }
 
             if (!AddUser)
@@ -62,7 +59,12 @@ namespace QuizApp.Controllers
             };
             userRepository.Add(user);
 
-            return RedirectToAction("Index","Account");
+            return RedirectToAction("Welcome","Register");
+        }
+
+        public IActionResult Welcome()
+        {
+            return View();
         }
     }
 }
