@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using QuizApp.Repository;
 using QuizApp.Models;
 using QuizApp.Extensions;
+using System.Collections.Generic;
+using QuizApp.ViewModels;
 
 /*
-    admin:admin@mail.com 123456 
+Admin  admin:admin@mail.com 123456 
 */
 
 namespace QuizApp.Controllers
@@ -14,11 +16,15 @@ namespace QuizApp.Controllers
     {
         IRepository<User> usersRepository;
         IRepository<Genre> genreRepository;
+        IRepository<TestResult> testResultRepository;
+        IRepository<Test> testRepository;
 
         public HomeController()
         {
             genreRepository = new GenreRepository();
             usersRepository = new UserRepository();
+            testResultRepository = new TestResultReposiory();
+            testRepository = new TestRepository();
         }
 
         public IActionResult Index()
@@ -108,6 +114,31 @@ namespace QuizApp.Controllers
         {
             return View();
         }
-                
+
+        public IActionResult Results()
+        {
+            var testResults = testResultRepository.getAll();
+            var tests = testRepository.getAll();
+
+            var testResultUser = new List<User>();
+            var testResultTest = new List<Test>();
+
+            foreach (var testResult in testResults)
+            {
+                var user = usersRepository.Get(testResult.UserId);
+                var test = testRepository.Get(testResult.TestId);
+                testResultUser.Add(user);
+                testResultTest.Add(test);
+            }
+
+            HomeTestResultViewModel vm = new HomeTestResultViewModel
+            {
+                TestResult = testResults,
+                Test = testResultTest,
+                User = testResultUser
+            };
+
+            return View(vm);
+        }
     }
 }

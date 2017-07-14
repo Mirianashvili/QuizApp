@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using QuizApp.Models;
 using QuizApp.DB;
 using System.Linq;

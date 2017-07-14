@@ -5,6 +5,7 @@ using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
 using QuizApp.Extensions;
+using System.Collections.Generic;
 
 namespace QuizApp.Controllers
 {
@@ -14,12 +15,14 @@ namespace QuizApp.Controllers
         IRepository<Test> testRepository;
         IRepository<Question> questionRepository;
         IRepository<Answer> answerRepository;
+        IRepository<TestResult> testResultRepository;
 
         public UserController()
         {
             testRepository = new TestRepository();
             questionRepository = new QuestionRepository();
             answerRepository = new AnswerRepository();
+            testResultRepository = new TestResultReposiory();
         }
 
         public IActionResult Index()
@@ -55,7 +58,7 @@ namespace QuizApp.Controllers
         {
             if (HttpContext.Session.Get<Testing>("testing") != null)
             {
-                HttpContext.Session.Set("testing", null);
+                return RedirectToAction("ClearSession", "User");
             }
 
             var MyTest = testRepository.Get(TestId);
@@ -151,12 +154,12 @@ namespace QuizApp.Controllers
 
             testing.Position++;
 
+            HttpContext.Session.Set<Testing>("testing",testing);
+
             if (testing.Position == testing.Questions.Count)
             {
                 return RedirectToAction("Result", "User");
             }
-
-            HttpContext.Session.Set<Testing>("testing",testing);
 
             UserTestingViewModel vm = new UserTestingViewModel();
             vm.Question = testing.Questions[testing.Position];
@@ -166,21 +169,57 @@ namespace QuizApp.Controllers
 
             return View(vm);
         }
-
-        [TestingFilter]
+        
         public IActionResult Result()
         {
-            //if (HttpContext.Session.Get<Testing>("testing") == null)
-            //{
-            //    return RedirectToAction("Index", "User");
-            //}
+            if (HttpContext.Session.Get<Testing>("testing") == null)
+            {
+                return RedirectToAction("Index", "User");
+            }
 
             Testing testing = HttpContext.Session.Get<Testing>("testing");
             HttpContext.Session.Set<Testing>("testing", null);
+
+            if (testing.SaveRatings == 1)
+            {
+                TestResult testResult = new TestResult
+                {
+                    TestId = testing.Test.Id,
+                    UserId = HttpContext.Session.Get<User>("login-user").Id,
+                    Result = testing.Score,
+                };
+                testResultRepository.Add(testResult);
+            }
 
             ViewBag.Score = testing.Score;
             return View();
         }
 
+        public IActionResult ClearSession()
+        {
+            HttpContext.Session.Set("testing", "");
+            return RedirectToAction("Index", "User");
+        }
+
+        public IActionResult UserResult()
+        {
+            var user = HttpContext.Session.Get<User>("login-user");
+            var testResult = testResultRepository.getAll().Where(x => x.UserId == user.Id).ToList();
+            var tests = new List<Test>();
+
+            foreach (var item in testResult)
+            {
+                var test = testRepository.Get(item.TestId);
+                tests.Add(test);
+            }
+
+            HomeTestResultViewModel vm = new HomeTestResultViewModel
+            {
+                TestResult = testResult,
+                Test = tests
+            };
+
+            return View(vm);
+        }
     }
 }

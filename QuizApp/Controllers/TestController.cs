@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;

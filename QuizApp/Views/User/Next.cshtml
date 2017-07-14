@@ -11,10 +11,12 @@
     <div class="form-group">
         @foreach (var answer in Model.Answers)
         {
-            <label>
-                <input type="checkbox" name="Answers[]" value="@answer.Id"/> @answer.Title
-            </label>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="Answers[]" value="@answer.Id"/> @answer.Title
+                </label>
+            </div>
         }
     </div>
-    <input type="submit" value="Next" />
+    <input type="submit" value="შემდეგ" />
 </form>

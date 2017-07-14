@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@model QuizApp.ViewModels.HomeTestResultViewModel
+
+<div class="col-md-12">
+
+    <h3>ჩემი შედეგები</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ტესტი</td>
+                <td>ქულა</td>
+            </tr>
+        </thead>
+
+        @{ var counter = 0;}
+
+        @foreach (var item in Model.TestResult)
+        {
+            <tr>
+                <td>@Model.Test[counter++].Title</td>
+                <td>@item.Result</td>
+            </tr>
+        }
+    </table>
+
+</div>

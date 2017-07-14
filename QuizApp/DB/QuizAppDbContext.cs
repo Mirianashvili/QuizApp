@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using QuizApp.Models;
 
 namespace QuizApp.DB
@@ -16,5 +15,6 @@ namespace QuizApp.DB
         public DbSet<Question> Question { get; set; }
         public DbSet<Answer> Answer { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<TestResult> TestResult { get; set; }
     }
 }

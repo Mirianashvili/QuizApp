@@ -1,0 +1,25 @@
+﻿@model QuizApp.ViewModels.HomeTestResultViewModel
+
+<h2>შედეგები</h2>
+
+@{ 
+    var counter = 0;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>მომხმარებელი</td>
+            <td>ტესტი</td>
+            <td>ქულა</td>
+        </tr>
+    </thead>
+    @foreach (var testResult in Model.TestResult)
+    {
+        <tr>
+            <td>@Model.User[counter].FullName</td>
+            <td>@Model.Test[counter++].Title</td>
+            <td>@testResult.Result</td>
+        </tr>
+    }
+</table>

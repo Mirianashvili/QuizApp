@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using QuizApp.Extensions;
+﻿using System.Collections.Generic;
 using QuizApp.Models;
 
 namespace QuizApp.ViewModels
