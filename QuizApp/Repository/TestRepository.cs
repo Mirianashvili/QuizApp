@@ -28,12 +28,12 @@ namespace QuizApp.Repository
 
         public Test Get(int Id)
         {
-            return context.Test.Where(x => x.Id == Id).FirstOrDefault();
+            return context.Tests.Where(x => x.Id == Id).FirstOrDefault();
         }
 
         public List<Test> getAll()
         {
-            return context.Test.ToList();
+            return context.Tests.ToList();
         }
 
         public void Update(Test entity)

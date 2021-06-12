@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using QuizApp.Filters;
 using QuizApp.Models;
 using QuizApp.Repository;
-using QuizApp.Filters;
-using System.Linq;
 using QuizApp.ViewModels;
 
 namespace QuizApp.Controllers
@@ -10,7 +13,7 @@ namespace QuizApp.Controllers
     [AdminFilter]
     public class AdminController : Controller
     {
-        IRepository<User> usersRepository;
+        private readonly IRepository<User> usersRepository;
 
         public AdminController()
         {
@@ -20,7 +23,7 @@ namespace QuizApp.Controllers
         public IActionResult Index()
         {
             var user = usersRepository
-                .getAll().Where(x=>x.UserRoleId == 2)
+                .getAll().Where(x => x.UserRoleId == 2)
                 .FirstOrDefault();
 
             AdminViewModel vm = new AdminViewModel

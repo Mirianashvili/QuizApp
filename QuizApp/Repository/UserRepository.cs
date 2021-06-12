@@ -8,7 +8,7 @@ namespace QuizApp.Repository
 {
     public class UserRepository : IRepository<User>
     {
-        private QuizAppDbContext context;
+        private readonly QuizAppDbContext context;
 
         public UserRepository()
         {
@@ -23,18 +23,18 @@ namespace QuizApp.Repository
 
         public void Delete(User entity)
         {
-            context.User.Remove(entity);
+            context.Users.Remove(entity);
             context.SaveChanges();
         }
 
         public User Get(int Id)
         {
-            return context.User.FirstOrDefault(x => x.Id == Id);
+            return context.Users.FirstOrDefault(x => x.Id == Id);
         }
 
         public List<User> getAll()
         {
-            return context.User.ToList();
+            return context.Users.ToList();
         }
 
         public void Update(User entity)

@@ -1,9 +1,0 @@
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\bin\Debug\netcoreapp1.1\QuizApp.deps.json
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\bin\Debug\netcoreapp1.1\QuizApp.runtimeconfig.json
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\bin\Debug\netcoreapp1.1\QuizApp.runtimeconfig.dev.json
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\obj\Debug\netcoreapp1.1\QuizApp.csprojResolveAssemblyReference.cache
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\obj\Debug\netcoreapp1.1\QuizApp.AssemblyInfo.cs
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\bin\Debug\netcoreapp1.1\QuizApp.dll
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\bin\Debug\netcoreapp1.1\QuizApp.pdb
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\obj\Debug\netcoreapp1.1\QuizApp.dll
-C:\Users\Sandro\Desktop\QuizApp\QuizApp\obj\Debug\netcoreapp1.1\QuizApp.pdb

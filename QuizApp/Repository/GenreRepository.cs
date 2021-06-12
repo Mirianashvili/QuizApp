@@ -28,12 +28,12 @@ namespace QuizApp.Repository
 
         public Genre Get(int Id)
         {
-            return context.Genre.FirstOrDefault(x => x.Id == Id);
+            return context.Genres.FirstOrDefault(x => x.Id == Id);
         }
 
         public List<Genre> getAll()
         {
-            return this.context.Genre.ToList();
+            return this.context.Genres.ToList();
         }
 
         public void Update(Genre entity)

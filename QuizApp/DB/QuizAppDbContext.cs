@@ -1,4 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using QuizApp.Models;
 
 namespace QuizApp.DB
@@ -7,14 +11,17 @@ namespace QuizApp.DB
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=QuizApp;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-6P5LC5N\SQLEXPRESS;Initial Catalog=QuizApp;Integrated Security=True");
         }
 
-        public DbSet<Genre> Genre { get; set; }
-        public DbSet<Test> Test { get; set; }
-        public DbSet<Question> Question { get; set; }
-        public DbSet<Answer> Answer { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<TestResult> TestResult { get; set; }
+        
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Test> Tests { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<TestResult> TestResults { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
     }
 }

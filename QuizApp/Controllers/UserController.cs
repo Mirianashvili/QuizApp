@@ -1,21 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using QuizApp.Extensions;
 using QuizApp.Filters;
 using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
-using QuizApp.Extensions;
-using System.Collections.Generic;
 
 namespace QuizApp.Controllers
 {
     [UserFilter]
     public class UserController : Controller
     {
-        IRepository<Test> testRepository;
-        IRepository<Question> questionRepository;
-        IRepository<Answer> answerRepository;
-        IRepository<TestResult> testResultRepository;
+        private IRepository<Test> testRepository;
+        private IRepository<Question> questionRepository;
+        private IRepository<Answer> answerRepository;
+        private IRepository<TestResult> testResultRepository;
 
         public UserController()
         {
@@ -49,12 +51,12 @@ namespace QuizApp.Controllers
             {
                 return RedirectToAction("Tests", "User");
             }
-            
+
             return View(test);
         }
 
         [HttpPost]
-        public IActionResult BeginTest(int Agree,int TestId)
+        public IActionResult BeginTest(int Agree, int TestId)
         {
             if (HttpContext.Session.Get<Testing>("testing") != null)
             {
@@ -78,7 +80,7 @@ namespace QuizApp.Controllers
             testing.Questions = questionRepository.getAll()
                 .Where(x => x.TestId == MyTest.Id)
                 .ToList();
-            
+
             HttpContext.Session.Set<Testing>("testing", testing);
 
             return RedirectToAction("Testing", "User");
@@ -127,34 +129,38 @@ namespace QuizApp.Controllers
                 return View(uvm);
             }
 
-      
+
             var question = testing.Questions[testing.Position];
             var answers = answerRepository.getAll()
                 .Where(x => x.QuestionId == question.Id)
                 .ToList();
 
-            int userAnswerCounter = 0;
-
+            //int userAnswerCounter = 0;
+            
             for (int i = 0; i < nvm.Answers.Length; i++)
             {
                 int answerId = nvm.Answers[i];
                 var answer = answers.Where(x => x.Id == answerId).FirstOrDefault();
                 if (answer != null)
                 {
-                    userAnswerCounter++;
+                    if (answer.Correct == 1) 
+                    {
+                        testing.Score += question.Score;
+                        break;
+                    }
                 }
             }
-
-            int questionAnswerCounter = answers.Where(x=>x.Correct == 1).ToList().Count;
+            /*
+            int questionAnswerCounter = answers.Where(x => x.Correct == 1).ToList().Count;
 
             if (userAnswerCounter == questionAnswerCounter)
             {
                 testing.Score += question.Score;
-            }
+            }*/
 
             testing.Position++;
 
-            HttpContext.Session.Set<Testing>("testing",testing);
+            HttpContext.Session.Set<Testing>("testing", testing);
 
             if (testing.Position == testing.Questions.Count)
             {
@@ -169,7 +175,7 @@ namespace QuizApp.Controllers
 
             return View(vm);
         }
-        
+
         public IActionResult Result()
         {
             if (HttpContext.Session.Get<Testing>("testing") == null)

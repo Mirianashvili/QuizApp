@@ -17,7 +17,7 @@ namespace QuizApp.Repository
 
         public void Add(TestResult entity)
         {
-            context.TestResult.Add(entity);
+            context.TestResults.Add(entity);
             context.SaveChanges();
         }
 
@@ -28,12 +28,12 @@ namespace QuizApp.Repository
 
         public TestResult Get(int Id)
         {
-            return context.TestResult.Where(x => x.Id == Id).FirstOrDefault();
+            return context.TestResults.Where(x => x.Id == Id).FirstOrDefault();
         }
 
         public List<TestResult> getAll()
         {
-            return context.TestResult.ToList();
+            return context.TestResults.ToList();
         }
 
         public void Update(TestResult entity)

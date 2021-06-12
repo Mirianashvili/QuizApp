@@ -28,12 +28,12 @@ namespace QuizApp.Repository
 
         public Question Get(int Id)
         {
-            return context.Question.FirstOrDefault(x => x.Id == Id);
+            return context.Questions.FirstOrDefault(x => x.Id == Id);
         }
 
         public List<Question> getAll()
         {
-            return context.Question.ToList();
+            return context.Questions.ToList();
         }
 
         public void Update(Question entity)

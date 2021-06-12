@@ -1,22 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QuizApp.Repository;
-using QuizApp.Models;
-using QuizApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using QuizApp.Filters;
+using QuizApp.Models;
+using QuizApp.Repository;
+using QuizApp.ViewModels;
 
 namespace QuizApp.Controllers
 {
     [AdminFilter]
     public class QuestionController : Controller
     {
-        IRepository<Question> questionRepository;
-        IRepository<Answer> answerRepository;
-        IRepository<Test> testRepository;
-        IRepository<Genre> genreRepository;
+        private readonly IRepository<Question> questionRepository;
+        private readonly IRepository<Answer> answerRepository;
+        private readonly IRepository<Test> testRepository;
+        private readonly IRepository<Genre> genreRepository;
 
         public QuestionController()
         {

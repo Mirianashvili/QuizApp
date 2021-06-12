@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QuizApp.Repository;
+using Microsoft.AspNetCore.Mvc;
 using QuizApp.Models;
+using QuizApp.Repository;
 using QuizApp.ViewModels;
 
 namespace QuizApp.Controllers
 {
     public class AnswerController : Controller
     {
-        IRepository<Answer> answerRepository;
+        private readonly IRepository<Answer> answerRepository;
 
         public AnswerController()
         {

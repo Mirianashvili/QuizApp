@@ -33,7 +33,7 @@ namespace QuizApp.Repository
 
         public List<Answer> getAll()
         {
-            return context.Answer.ToList();
+            return context.Answers.ToList();
         }
 
         public void Update(Answer entity)

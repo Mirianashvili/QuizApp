@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using QuizApp.Filters;
 using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
-using QuizApp.Filters;
 
 namespace QuizApp.Controllers
 {
@@ -22,7 +22,7 @@ namespace QuizApp.Controllers
             this.testRepository = new TestRepository();
             this.genreRepository = new GenreRepository();
         }
-        
+
         public IActionResult Index()
         {
             var genres = genreRepository.getAll();
@@ -80,7 +80,7 @@ namespace QuizApp.Controllers
                 Genre = genre,
                 Tests = tests
             };
-            
+
 
             return View(vm);
         }
@@ -124,7 +124,7 @@ namespace QuizApp.Controllers
             genreRepository.Update(genre);
             return RedirectToAction("Index", "Genre");
         }
-        
+
         public IActionResult Remove(int Id)
         {
             var genre = genreRepository.Get(Id);
@@ -136,10 +136,10 @@ namespace QuizApp.Controllers
 
             //delete test,question,answer
             genreRepository.Delete(genre);
-            
+
             return RedirectToAction("Index", "Genre");
         }
-        
+
         public IActionResult Search(string query)
         {
             var genres = genreRepository.getAll()

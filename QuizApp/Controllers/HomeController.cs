@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using QuizApp.Repository;
-using QuizApp.Models;
-using QuizApp.Extensions;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using QuizApp.Models;
+using QuizApp.Repository;
+using QuizApp.Extensions;
 using QuizApp.ViewModels;
-
-/*
-Admin  admin:admin@mail.com 123456 
-*/
 
 namespace QuizApp.Controllers
 {
@@ -49,7 +49,7 @@ namespace QuizApp.Controllers
 
             return View(genre);
         }
-        
+
         [Route("/login")]
         public IActionResult Login()
         {
@@ -90,7 +90,7 @@ namespace QuizApp.Controllers
                 return View();
             }
 
-    
+
             if (user.UserRoleId == 1)
             {
                 HttpContext.Session.Set<User>("login-user", user);
@@ -98,7 +98,7 @@ namespace QuizApp.Controllers
             }
 
             HttpContext.Session.Set<User>("login-admin", user);
-            return RedirectToAction("Index","Genre");
+            return RedirectToAction("Index", "Genre");
 
         }
 

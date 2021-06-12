@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using QuizApp.DB;
 using QuizApp.Models;
+using QuizApp.Extensions;
+using QuizApp.Filters;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
-using QuizApp.Filters;
 
 namespace QuizApp.Controllers
 {
@@ -11,9 +16,9 @@ namespace QuizApp.Controllers
     public class TestController : Controller
     {
 
-        IRepository<Test> testRepository;
-        IRepository<Genre> genreRepository;
-        IRepository<Question> questionRepository;
+        private readonly IRepository<Test> testRepository;
+        private readonly IRepository<Genre> genreRepository;
+        private readonly IRepository<Question> questionRepository;
 
         public TestController()
         {

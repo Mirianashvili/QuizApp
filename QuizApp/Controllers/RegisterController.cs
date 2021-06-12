@@ -1,21 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using QuizApp.Extensions;
 using QuizApp.Models;
 using QuizApp.Repository;
 using QuizApp.ViewModels;
-using QuizApp.Extensions;
 
 namespace QuizApp.Controllers
 {
-    public class RegisterController:Controller
+    public class RegisterController : Controller
     {
-        IRepository<User> userRepository;
+        private readonly IRepository<User> userRepository;
 
         public RegisterController()
         {
             userRepository = new UserRepository();
         }
-        
+
         public IActionResult Index()
         {
             return View();
@@ -48,7 +51,7 @@ namespace QuizApp.Controllers
             {
                 return View();
             }
-                
+
             User user = new User()
             {
                 FullName = vm.Fullname,
@@ -59,7 +62,7 @@ namespace QuizApp.Controllers
             };
             userRepository.Add(user);
 
-            return RedirectToAction("Welcome","Register");
+            return RedirectToAction("Welcome", "Register");
         }
 
         public IActionResult Welcome()
